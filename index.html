@@ -2,36 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0B2A5B" />
   <title>Triple A Sales — Arya | Country Hills Ford</title>
 
-  <meta name="description" content="Book your private vehicle consultation & test drive in 30 seconds. Calgary's Vehicle Sales Specialist at Country Hills Ford." />
+  <meta name="description" content="Book your private vehicle consultation & test drive in 30 seconds. Calgary’s Vehicle Sales Specialist at Country Hills Ford." />
   <meta property="og:title" content="Triple A Sales — Arya | Country Hills Ford" />
-  <meta property="og:description" content="Book your private vehicle consultation & test drive in 30 seconds." />
+  <meta property="og:description" content="Quick funnel: pick what you want → book, call, text, or email." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="qr.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --navy:#07162F;
       --ford:#003478;
-      --ice:#EAF2FF;
-      --muted:rgba(234,242,255,.72);
-      --line:rgba(234,242,255,.14);
+      --ford2:#0B2A5B;
+      --ink:#071225;
 
-      --panel:rgba(10,18,34,.60);
-      --panel2:rgba(10,18,34,.38);
+      --text:#EAF2FF;
+      --muted: rgba(234,242,255,.74);
 
-      --cta:#7CC7FF;
+      --card: rgba(7,18,37,.62);
+      --border: rgba(234,242,255,.14);
+
+      --cta1:#7CC7FF;
       --cta2:#A6E2FF;
 
-      --r:22px;
-      --max:860px;
+      --r: 22px;
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --shadow2: 0 14px 34px rgba(0,0,0,.35);
     }
 
     *{box-sizing:border-box}
@@ -39,373 +41,493 @@
     body{
       margin:0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ice);
+      color: var(--text);
       background:
-        radial-gradient(900px 600px at 18% -8%, rgba(124,199,255,.18), transparent 60%),
-        radial-gradient(1000px 650px at 110% 35%, rgba(0,52,120,.30), transparent 60%),
-        linear-gradient(180deg, var(--navy), #050B16);
+        radial-gradient(900px 620px at 20% -10%, rgba(124,199,255,.22), transparent 60%),
+        radial-gradient(900px 620px at 110% 30%, rgba(124,199,255,.12), transparent 60%),
+        linear-gradient(180deg, #06112A 0%, #050B16 100%);
       overflow-x:hidden;
     }
 
-    a{color:inherit; text-decoration:none}
-
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px}
-    @media (min-width:900px){ .wrap{padding:34px} }
-
-    /* Minimal top bar */
-    .top{
-      display:flex; align-items:center; gap:14px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(10,18,34,.70), rgba(10,18,34,.42));
-      border-radius: calc(var(--r) + 6px);
-      padding:14px 14px;
-      box-shadow: 0 22px 60px rgba(0,0,0,.45);
+    /* Faded vehicle collage background (like your poster) */
+    .bg{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+      background:
+        /* Ford-blue veil */
+        linear-gradient(180deg, rgba(0,52,120,.86), rgba(6,12,22,.92)),
+        /* top-left */
+        radial-gradient(1200px 760px at 15% 10%, rgba(255,255,255,.06), transparent 60%),
+        /* top-right */
+        radial-gradient(1000px 760px at 88% 15%, rgba(124,199,255,.12), transparent 62%);
     }
-    .pfp{
-      width:42px; height:42px; border-radius:14px;
+    .bg::before{
+      content:"";
+      position:absolute; inset:-10%;
+      opacity:.18;
+      filter: blur(1px);
+      background:
+        url("hero-raptor.jpg") left 10% top 18% / 520px auto no-repeat,
+        url("hero-bronco.jpg") right 8% top 10% / 520px auto no-repeat,
+        url("hero-explorer.jpg") left 8% bottom 14% / 560px auto no-repeat,
+        url("hero-expedition.webp") right 6% bottom 10% / 560px auto no-repeat;
+      transform: scale(1.02);
+    }
+    .bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 520px at 50% 30%, rgba(0,0,0,.10), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.55));
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding: max(18px, env(safe-area-inset-top)) 14px calc(90px + env(safe-area-inset-bottom)) 14px;
+    }
+
+    .shell{
+      width:min(520px, 100%);
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(7,18,37,.74), rgba(7,18,37,.52));
+      border-radius: calc(var(--r) + 8px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .top{
+      padding:16px 16px 14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      border-bottom: 1px solid rgba(234,242,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+    }
+
+    .avatar{
+      width:44px; height:44px;
+      border-radius: 14px;
       border:1px solid rgba(234,242,255,.16);
-      overflow:hidden; flex:0 0 auto;
+      overflow:hidden;
+      box-shadow: var(--shadow2);
+      flex:0 0 auto;
       background: rgba(255,255,255,.06);
     }
-    .pfp img{width:100%; height:100%; object-fit:cover}
-    .top .meta{min-width:0; flex:1}
-    .top h1{
-      margin:0; font-size:15px; font-weight:900; letter-spacing:.2px;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-    .top p{
-      margin:3px 0 0 0;
-      font-size:12.5px; color:var(--muted); line-height:1.25;
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    }
-    .callpill{
-      border:1px solid rgba(234,242,255,.16);
-      background: rgba(10,18,34,.45);
-      padding:10px 12px;
-      border-radius: 999px;
-      font-weight:900;
-      font-size:12.5px;
-      display:inline-flex; align-items:center; gap:8px;
-      flex:0 0 auto;
-    }
-    .dot{width:8px; height:8px; border-radius:999px; background:#39d98a; box-shadow:0 0 0 4px rgba(57,217,138,.14)}
+    .avatar img{width:100%; height:100%; object-fit:cover}
 
-    /* Main funnel panel */
-    .panel{
-      margin-top:14px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, var(--panel), var(--panel2));
-      border-radius: var(--r);
-      padding:18px;
-      box-shadow: 0 16px 45px rgba(0,0,0,.35);
+    .head{
+      flex:1; min-width:0;
     }
-
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:8px 10px;
-      border:1px solid rgba(234,242,255,.14);
-      background: rgba(10,18,34,.40);
-      border-radius:999px;
-      font-size:12px;
-      color: rgba(234,242,255,.85);
-      font-weight:800;
-    }
-
-    .hero{
-      margin-top:12px;
-    }
-    .hero h2{
+    .head .name{
       margin:0;
-      font-size:28px;
-      line-height:1.08;
-      letter-spacing:-.3px;
-      font-weight:950;
+      font-weight:900;
+      letter-spacing:-.2px;
+      font-size:15px;
+      line-height:1.15;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
-    .hero p{
-      margin:10px 0 0 0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-      max-width: 62ch;
+    .head .tag{
+      margin:4px 0 0;
+      font-size:12.5px;
+      color: var(--muted);
+      line-height:1.25;
     }
 
-    /* Selector */
-    .step{
-      margin-top:16px;
-      border-top:1px solid rgba(234,242,255,.10);
-      padding-top:14px;
+    .callpill{
+      flex:0 0 auto;
+      border:1px solid rgba(234,242,255,.16);
+      background: rgba(0,0,0,.18);
+      border-radius: 999px;
+      padding:10px 12px;
+      font-weight:900;
+      font-size:12px;
+      display:flex;
+      gap:8px;
+      align-items:center;
     }
-    .step .label{
-      display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap;
+    .dot{
+      width:8px; height:8px; border-radius:999px;
+      background:#39d98a;
+      box-shadow: 0 0 0 4px rgba(57,217,138,.12);
+    }
+
+    .main{padding:16px}
+    .kicker{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
       margin-bottom:10px;
     }
-    .step .label b{font-size:13px; font-weight:1000}
-    .step .label span{font-size:12px; color:rgba(234,242,255,.6)}
-    .seg{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:8px;
-    }
-    @media (max-width:520px){
-      .seg{grid-template-columns: 1fr 1fr}
-    }
-    .seg button{
+    .chip{
       border:1px solid rgba(234,242,255,.14);
-      background: rgba(10,18,34,.44);
-      color: rgba(234,242,255,.92);
-      padding:12px 10px;
-      border-radius: 14px;
-      font-weight:1000;
-      font-size:13px;
-      cursor:pointer;
-      transition: transform .12s ease, border-color .2s ease, background .2s ease;
-    }
-    .seg button:hover{transform:translateY(-1px); border-color: rgba(234,242,255,.28)}
-    .seg button.active{
-      background: linear-gradient(135deg, rgba(124,199,255,.25), rgba(0,52,120,.25));
-      border-color: rgba(166,226,255,.45);
+      background: rgba(0,0,0,.18);
+      border-radius: 999px;
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:900;
+      color: rgba(234,242,255,.88);
     }
 
-    /* Primary CTA */
-    .cta{
+    h1{
+      margin:0;
+      font-size:22px;
+      line-height:1.12;
+      letter-spacing:-.4px;
+      font-weight:900;
+    }
+    .sub{
+      margin:10px 0 0;
+      color: var(--muted);
+      font-size:13.5px;
+      line-height:1.45;
+    }
+
+    .step{
       margin-top:14px;
-      display:grid;
-      gap:10px;
+      border:1px solid rgba(234,242,255,.12);
+      background: rgba(0,0,0,.16);
+      border-radius: 18px;
+      padding:12px;
     }
-    .btn{
-      width:100%;
-      border:1px solid rgba(234,242,255,.16);
-      background: rgba(10,18,34,.50);
-      color: rgba(234,242,255,.92);
-      padding:14px 14px;
-      border-radius: 16px;
+    .step .label{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-end;
+      margin-bottom:10px;
+    }
+    .step .label b{
+      font-size:13px;
       font-weight:1000;
-      font-size:15px;
-      display:inline-flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-      cursor:pointer;
-      transition: transform .12s ease, border-color .2s ease, background .2s ease;
-      user-select:none;
+      letter-spacing:.2px;
     }
-    .btn:hover{transform:translateY(-1px); border-color: rgba(234,242,255,.28)}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(124,199,255,.98), rgba(166,226,255,.90));
-      color:#06101F;
-      border-color: rgba(255,255,255,.35);
-      box-shadow: 0 16px 40px rgba(124,199,255,.18);
+    .step .label span{
+      font-size:12px;
+      color: rgba(234,242,255,.62);
     }
-    .row2{
+
+    .options{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:10px;
     }
-    @media (max-width:420px){
-      .row2{grid-template-columns:1fr}
-    }
-
-    /* Collapsible "More" */
-    details.more{
-      margin-top:12px;
-      border:1px solid rgba(234,242,255,.12);
-      background: rgba(10,18,34,.34);
+    .opt{
+      border:1px solid rgba(234,242,255,.14);
+      background: rgba(7,18,37,.45);
       border-radius: 16px;
-      padding: 10px 12px;
-    }
-    details.more > summary{
-      list-style:none;
+      padding:12px 12px;
       cursor:pointer;
       font-weight:1000;
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      color: rgba(234,242,255,.9);
-      font-size:13.5px;
-      user-select:none;
+      font-size:13px;
+      color: rgba(234,242,255,.94);
+      transition: transform .12s ease, border-color .2s ease, background .2s ease;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-start;
+      text-align:left;
     }
-    details.more > summary::-webkit-details-marker{display:none}
-    .chev{opacity:.7}
-    .links{
-      margin-top:10px;
-      display:grid;
-      gap:8px;
+    .opt:hover{transform: translateY(-1px); border-color: rgba(234,242,255,.28)}
+    .opt.active{
+      background: linear-gradient(135deg, rgba(124,199,255,.22), rgba(0,52,120,.22));
+      border-color: rgba(166,226,255,.42);
+      box-shadow: 0 14px 30px rgba(0,0,0,.18);
     }
-    .link{
-      display:flex; align-items:center; justify-content:space-between; gap:10px;
-      border:1px solid rgba(234,242,255,.12);
-      background: rgba(10,18,34,.40);
+    .ico{
+      width:34px; height:34px;
       border-radius: 14px;
-      padding: 12px 12px;
-      font-weight:900;
-      font-size:13.5px;
-    }
-    .link span{color:rgba(234,242,255,.65); font-weight:800; font-size:12px}
-
-    /* Small QR (not dominating) */
-    .qr{
-      margin-top:12px;
-      display:flex; align-items:center; gap:12px;
-      border:1px solid rgba(234,242,255,.12);
-      background: rgba(10,18,34,.30);
-      border-radius: 16px;
-      padding: 10px 12px;
-    }
-    .qr img{
-      width:64px; height:64px;
-      border-radius: 12px;
-      background:#fff;
       border:1px solid rgba(234,242,255,.14);
-      object-fit:cover;
+      background: rgba(255,255,255,.06);
+      display:grid;
+      place-items:center;
+      font-size:16px;
       flex:0 0 auto;
     }
-    .qr b{display:block; font-weight:1000; font-size:13.5px}
-    .qr p{margin:3px 0 0 0; color:rgba(234,242,255,.65); font-size:12px; line-height:1.3}
-
-    footer{
-      text-align:center;
-      color: rgba(234,242,255,.55);
-      font-size:12px;
-      padding: 14px 0 90px;
+    .opt small{
+      display:block;
+      font-size:11.5px;
+      font-weight:800;
+      color: rgba(234,242,255,.66);
+      margin-top:2px;
     }
 
-    /* Mobile sticky (simple) */
-    .sticky{
-      position:fixed; left:0; right:0; bottom:0;
-      padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
-      background: linear-gradient(180deg, rgba(5,11,22,0), rgba(5,11,22,.86) 35%, rgba(5,11,22,.94));
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(234,242,255,.10);
-      z-index:50;
-    }
-    .sticky .bar{
-      max-width:var(--max);
-      margin:0 auto;
+    .cta{
+      margin-top:14px;
       display:grid;
-      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap:10px;
     }
-    .sticky a{
-      display:inline-flex; justify-content:center; align-items:center; gap:10px;
-      padding: 12px 12px;
+    .btn{
+      border:1px solid rgba(234,242,255,.16);
+      background: rgba(7,18,37,.46);
+      color: rgba(234,242,255,.94);
       border-radius: 16px;
-      border:1px solid rgba(234,242,255,.14);
-      background: rgba(10,18,34,.45);
-      color: rgba(234,242,255,.92);
+      padding:12px 12px;
       font-weight:1000;
-      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      font-size:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      box-shadow: var(--shadow2);
+      transition: transform .12s ease, border-color .2s ease, background .2s ease;
+      user-select:none;
+      text-decoration:none;
     }
-    .sticky a.primary{
-      background: linear-gradient(135deg, rgba(124,199,255,.98), rgba(166,226,255,.90));
+    .btn:hover{transform: translateY(-1px); border-color: rgba(234,242,255,.28)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,199,255,.98), rgba(166,226,255,.9));
       color:#06101F;
       border-color: rgba(255,255,255,.35);
     }
-    @media (min-width:900px){ .sticky{display:none} }
+
+    .links{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+
+    .inv{
+      margin-top:14px;
+      border-top: 1px solid rgba(234,242,255,.10);
+      padding-top:14px;
+    }
+    .inv h2{
+      margin:0 0 10px;
+      font-size:12px;
+      letter-spacing:.32px;
+      text-transform:uppercase;
+      color: rgba(234,242,255,.72);
+      font-weight:1000;
+    }
+
+    .minirow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+
+    .foot{
+      margin-top:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      color: rgba(234,242,255,.55);
+      font-size:11.5px;
+      padding-bottom: 2px;
+    }
+
+    /* Sticky bottom bar (mobile-first conversion) */
+    .sticky{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:50;
+      padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, rgba(5,11,22,0), rgba(5,11,22,.86) 35%, rgba(5,11,22,.95));
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(234,242,255,.10);
+    }
+    .bar{
+      width:min(520px, 100%);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      gap:10px;
+    }
+    .bar a{
+      border:1px solid rgba(234,242,255,.14);
+      background: rgba(7,18,37,.45);
+      border-radius: 16px;
+      padding:12px 10px;
+      font-weight:1000;
+      font-size:13.5px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      color: rgba(234,242,255,.92);
+      text-decoration:none;
+      box-shadow: var(--shadow2);
+    }
+    .bar a.primary{
+      background: linear-gradient(135deg, rgba(124,199,255,.98), rgba(166,226,255,.9));
+      color:#06101F;
+      border-color: rgba(255,255,255,.35);
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .opt,.btn{transition:none}
+      .opt:hover,.btn:hover{transform:none}
+    }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <div class="bg" aria-hidden="true"></div>
 
-    <header class="top">
-      <div class="pfp"><img src="arya.jpg" alt="Arya Ajdari"></div>
-      <div class="meta">
-        <h1>Triple A Sales — Arya</h1>
-        <p><b>Calgary's Vehicle Sales Specialist.</b> • Country Hills Ford</p>
-      </div>
-      <a class="callpill" href="tel:+14036810014"><span class="dot"></span>403-681-0014</a>
-    </header>
+  <main class="wrap">
+    <section class="shell" aria-label="Triple A Sales funnel">
 
-    <main class="panel">
-      <div class="kicker">🚗 Private consults • no pressure • fast replies</div>
-
-      <div class="hero">
-        <h2 id="heroTitle">Book in 30 seconds</h2>
-        <p>
-          <b>Specializing in Trucks, SUVs &amp; High-End Vehicles at Country Hills Ford.</b>
-          Choose what you’re shopping for and I’ll get you the best options + a booked test drive.
-        </p>
-      </div>
-
-      <section class="step" aria-label="Step 1">
-        <div class="label">
-          <b>1) What are you shopping for?</b>
-          <span>One tap</span>
+      <header class="top">
+        <div class="avatar">
+          <img src="arya.jpg" alt="Arya Ajdari" />
         </div>
-
-        <div class="seg" role="tablist" aria-label="Vehicle category">
-          <button class="active" data-type="Truck" aria-pressed="true">🚚 Truck</button>
-          <button data-type="SUV" aria-pressed="false">🚙 SUV</button>
-          <button data-type="High-End" aria-pressed="false">✨ High-End</button>
-          <button data-type="Pre-Owned" aria-pressed="false">✅ Pre-Owned</button>
+        <div class="head">
+          <p class="name">Triple A Sales — Arya</p>
+          <p class="tag"><b>Calgary’s Vehicle Sales Specialist.</b> • Country Hills Ford</p>
         </div>
-      </section>
-
-      <section class="cta" aria-label="Primary CTA">
-        <a class="btn primary" id="btnBook" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
-          📅 Book a <span id="ctaType">Truck</span> consult
+        <a class="callpill" href="tel:+14036810014" aria-label="Call 403-681-0014">
+          <span class="dot" aria-hidden="true"></span>
+          403-681-0014
         </a>
+      </header>
 
-        <div class="row2">
-          <a class="btn" id="btnText" href="sms:+14036810014">💬 Text me your details</a>
-          <a class="btn" href="tel:+14036810014">📞 Call now</a>
-        </div>
-      </section>
-
-      <details class="more">
-        <summary>
-          More ways to reach me
-          <span class="chev">▾</span>
-        </summary>
-
-        <div class="links" aria-label="More links">
-          <a class="link" href="mailto:aajdari@chillsford.com" id="btnEmail">
-            ✉️ Email <span>aajdari@chillsford.com</span>
-          </a>
-          <a class="link" href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener">
-            📸 Instagram <span>@triple.a.sales</span>
-          </a>
+      <div class="main">
+        <div class="kicker">
+          <span class="chip">🚗 Private consults</span>
+          <span class="chip">⚡ Fast replies</span>
+          <span class="chip">✅ No pressure</span>
         </div>
 
-        <div class="qr" aria-label="QR">
-          <img src="qr.jpg" alt="Booking QR code">
-          <div>
-            <b>Prefer QR?</b>
-            <p>Scan to open booking instantly.</p>
+        <h1>Book a consultation / test drive in 30 seconds</h1>
+        <p class="sub" id="subline">
+          Specializing in <b>Trucks, SUVs &amp; High-End Vehicles</b> at Country Hills Ford.
+          Pick what you’re shopping for — your text/email auto-fills so we can move fast.
+        </p>
+
+        <div class="step" aria-label="Funnel step 1">
+          <div class="label">
+            <b>What are you looking for?</b>
+            <span id="sel">Selected: Trucks</span>
+          </div>
+
+          <div class="options" role="tablist" aria-label="Vehicle category">
+            <button class="opt active" data-type="Trucks" aria-pressed="true">
+              <span class="ico">🚚</span>
+              <span>
+                Trucks
+                <small>Work • towing • off-road</small>
+              </span>
+            </button>
+
+            <button class="opt" data-type="SUVs" aria-pressed="false">
+              <span class="ico">🚙</span>
+              <span>
+                SUV
+                <small>Family • road trips</small>
+              </span>
+            </button>
+
+            <button class="opt" data-type="Luxury" aria-pressed="false">
+              <span class="ico">✨</span>
+              <span>
+                Luxury
+                <small>High-end features</small>
+              </span>
+            </button>
+
+            <button class="opt" data-type="Pre-Owned" aria-pressed="false">
+              <span class="ico">✅</span>
+              <span>
+                Pre-Owned
+                <small>Best value • clean trades</small>
+              </span>
+            </button>
           </div>
         </div>
-      </details>
-    </main>
 
-    <footer>© <span id="yr"></span> Triple A Sales • Calgary, AB • Country Hills Ford</footer>
-  </div>
+        <!-- Primary actions (clean, minimal) -->
+        <div class="cta" aria-label="Primary actions">
+          <a class="btn primary" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
+            📅 Book Appointment
+          </a>
+          <a class="btn" href="tel:+14036810014">
+            📞 Call
+          </a>
+        </div>
 
-  <div class="sticky" aria-label="Sticky actions">
+        <!-- Message actions -->
+        <div class="links" aria-label="Message actions">
+          <a class="btn" id="btnText" href="sms:+14036810014">💬 Text (auto-fill)</a>
+          <a class="btn" id="btnEmail" href="mailto:aajdari@chillsford.com">✉️ Email (auto-fill)</a>
+        </div>
+
+        <!-- Inventory -->
+        <div class="inv" aria-label="Inventory links">
+          <h2>Take a look at our inventory</h2>
+          <div class="minirow">
+            <a class="btn" href="https://www.countryhillsford.com/vehicles/new" target="_blank" rel="noopener">
+              🆕 New Inventory
+            </a>
+            <a class="btn" href="https://www.countryhillsford.com/vehicles/used" target="_blank" rel="noopener">
+              🔁 Used Inventory
+            </a>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="inv" aria-label="Social link" style="padding-top:12px">
+          <div class="minirow">
+            <a class="btn" href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener">
+              📸 Instagram
+            </a>
+            <a class="btn" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
+              ⚡ Book Fast
+            </a>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>© <span id="yr"></span> Triple A Sales</span>
+          <span>Country Hills Ford • Calgary, AB</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Sticky conversion bar -->
+  <nav class="sticky" aria-label="Sticky actions">
     <div class="bar">
       <a class="primary" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener" id="stickyBook">📅 Book</a>
-      <a href="tel:+14036810014">📞 Call</a>
+      <a href="tel:+14036810014" id="stickyCall">📞 Call</a>
       <a href="sms:+14036810014" id="stickyText">💬 Text</a>
     </div>
-  </div>
+  </nav>
 
   <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
-
-    const phone = "+14036810014";
+    // Config
+    const phoneE164 = "+14036810014";
     const email = "aajdari@chillsford.com";
 
-    const state = { type: "Truck" };
+    const state = { type: "Trucks" };
 
-    const ctaType = document.getElementById("ctaType");
-    const btnBook = document.getElementById("btnBook");
+    // DOM
+    const sel = document.getElementById("sel");
     const btnText = document.getElementById("btnText");
     const btnEmail = document.getElementById("btnEmail");
     const stickyText = document.getElementById("stickyText");
 
-    function smsTemplate(type){
+    // Year
+    document.getElementById("yr").textContent = new Date().getFullYear();
+
+    function buildSms(type){
       return `Hi Arya — I’m looking for a ${type}. Budget: $____/mo or $____ total. Must-haves: _____. Timeline: _____. Trade-in? (Y/N). Can you shortlist 2–3 options and confirm availability?`;
     }
 
-    function emailTemplate(type){
-      const subject = `Vehicle consult — ${type}`;
+    function buildEmail(type){
+      const subject = `Vehicle consult — ${type} (Calgary)`;
       const body =
 `Hi Arya,
 
@@ -413,46 +535,46 @@ I’m looking for a ${type}.
 
 Budget: $____/month OR $____ total
 Must-haves: __________________________________
+Nice-to-haves: ________________________________
 Timeline: ____________________________________
 Trade-in: (Y/N) — If yes: year/make/model/km: ____
 Preferred appointment time(s): ________________
 
-Can you shortlist 2–3 options and confirm availability?
+Can you shortlist 2–3 options and confirm availability before I come in?
 
 Thanks,`;
-      return {subject, body};
+      return { subject, body };
     }
 
-    function setLinks(){
-      ctaType.textContent = state.type;
-      btnBook.setAttribute("aria-label", `Book a ${state.type} consultation on Calendly`);
+    function apply(){
+      sel.textContent = `Selected: ${state.type}`;
 
-      const sms = encodeURIComponent(smsTemplate(state.type));
-      const smsHref = `sms:${phone}?&body=${sms}`;
-      btnText.href = smsHref;
-      stickyText.href = smsHref;
+      const sms = encodeURIComponent(buildSms(state.type));
+      btnText.href = `sms:${phoneE164}?&body=${sms}`;
+      stickyText.href = `sms:${phoneE164}?&body=${sms}`;
 
-      const em = emailTemplate(state.type);
-      btnEmail.href = `mailto:${email}?subject=${encodeURIComponent(em.subject)}&body=${encodeURIComponent(em.body)}`;
+      const em = buildEmail(state.type);
+      btnEmail.href =
+        `mailto:${email}?subject=${encodeURIComponent(em.subject)}&body=${encodeURIComponent(em.body)}`;
     }
 
     function setActive(btn){
-      document.querySelectorAll(".seg button").forEach(b=>{
+      document.querySelectorAll(".opt").forEach(b=>{
         const on = (b === btn);
         b.classList.toggle("active", on);
         b.setAttribute("aria-pressed", on ? "true" : "false");
       });
     }
 
-    document.querySelectorAll(".seg button").forEach(btn=>{
+    document.querySelectorAll(".opt").forEach(btn=>{
       btn.addEventListener("click", ()=>{
-        state.type = btn.dataset.type || "Truck";
+        state.type = btn.dataset.type || "Trucks";
         setActive(btn);
-        setLinks();
+        apply();
       });
     });
 
-    setLinks();
+    apply();
   </script>
 </body>
 </html>
