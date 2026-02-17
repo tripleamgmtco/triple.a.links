@@ -8,18 +8,13 @@
 
   <style>
     :root{
-      /* Ford-ish blues */
       --bg0:#04070c;
       --bg1:#06101f;
       --ford:#003478;
-      --ford2:#0b2a57;
       --ice:#7fd3ff;
-      --ice2:#b8ecff;
 
-      --card: rgba(12, 22, 38, .66);
-      --card2: rgba(12, 22, 38, .50);
+      --card: rgba(12, 22, 38, .70);
       --stroke: rgba(180, 220, 255, .14);
-      --stroke2: rgba(180, 220, 255, .22);
 
       --text:#eaf3ff;
       --muted: rgba(234,243,255,.72);
@@ -27,7 +22,6 @@
 
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius: 22px;
-      --radius2: 16px;
     }
 
     *{ box-sizing:border-box; }
@@ -37,30 +31,18 @@
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(0, 80, 180, .25), transparent 55%),
-        radial-gradient(900px 600px at 80% 20%, rgba(120, 210, 255, .18), transparent 60%),
+        radial-gradient(1200px 700px at 20% 10%, rgba(0, 80, 180, .22), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(120, 210, 255, .16), transparent 60%),
         linear-gradient(180deg, var(--bg1), var(--bg0) 70%);
       overflow-x:hidden;
     }
 
-    /* soft faded vehicle background collage */
+    /* ✅ Visible faded vehicle collage background */
     .bg{
       position:fixed;
       inset:0;
-      pointer-events:none;
       z-index:-2;
-      opacity:.32;
-      filter: saturate(1.05) contrast(1.02);
-    }
-    .bg::before{
-      content:"";
-      position:absolute;
-      inset:-20px;
-      background:
-        linear-gradient(180deg, rgba(3,7,12,.88), rgba(3,7,12,.88)),
-        radial-gradient(900px 500px at 50% 0%, rgba(0,52,120,.35), transparent 65%),
-        radial-gradient(800px 500px at 70% 70%, rgba(127,211,255,.22), transparent 60%);
-      z-index:2;
+      pointer-events:none;
     }
     .bg-grid{
       position:absolute;
@@ -68,42 +50,47 @@
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      padding: 10px;
-      z-index:1;
+      padding: 12px;
+      opacity: .55;               /* make photos visible */
+      filter: saturate(1.05) contrast(1.05);
     }
     .bg-grid img{
       width:100%;
       height:100%;
       object-fit:cover;
       border-radius: 18px;
-      opacity:.55;
-      filter: blur(.2px);
     }
-    .bg-grid .wide{ grid-column: 1 / -1; height: 38vh; min-height: 240px; }
+    .bg-grid .wide{ grid-column: 1 / -1; height: 40vh; min-height: 240px; }
     .bg-grid .half{ height: 22vh; min-height: 160px; }
 
-    /* page container */
+    /* This overlay keeps it readable but NOT too dark */
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 520px at 50% 8%, rgba(0,52,120,.38), transparent 62%),
+        radial-gradient(900px 520px at 70% 75%, rgba(127,211,255,.18), transparent 60%),
+        linear-gradient(180deg, rgba(3,7,12,.45), rgba(3,7,12,.78));
+      z-index:2;
+    }
+
     .wrap{
       width:min(980px, 92vw);
       margin: 18px auto 110px;
       padding-bottom: 24px;
     }
-
-    /* main glass card */
     .card{
-      background: linear-gradient(180deg, rgba(12,22,38,.72), rgba(12,22,38,.52));
+      background: linear-gradient(180deg, rgba(12,22,38,.78), rgba(12,22,38,.58));
       border:1px solid var(--stroke);
       box-shadow: var(--shadow);
       border-radius: var(--radius);
       overflow:hidden;
+      backdrop-filter: blur(10px);
     }
 
-    /* top header */
+    /* ✅ Mobile-friendly stacked header */
     .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
       padding: 16px 16px 12px;
       border-bottom: 1px solid rgba(180,220,255,.08);
       background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
@@ -122,43 +109,38 @@
       object-fit:cover;
       flex:0 0 auto;
     }
-    .who{
-      min-width:0;
-      line-height:1.15;
-    }
+    .who{ min-width:0; line-height:1.15; }
     .title{
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.2px;
-      font-size: 16px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width: 52vw; /* prevents cut-off on mobile */
+      font-size: 17px;
+      white-space: normal;        /* allow wrap */
+      overflow: visible;
+      text-overflow: unset;
     }
     .tagline{
       margin-top:4px;
       color: var(--muted);
       font-size: 12.5px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width: 58vw;
+      white-space: normal;        /* allow wrap */
     }
 
+    /* phone is now below title, full width */
     .phonePill{
-      flex: 0 0 auto;
-      display:inline-flex;
+      margin-top: 12px;
+      width: 100%;
+      display:flex;
       align-items:center;
+      justify-content:center;
       gap:8px;
-      padding: 10px 12px;
+      padding: 12px 12px;
       border-radius: 999px;
       border:1px solid rgba(180,220,255,.18);
-      background: rgba(3, 10, 20, .32);
+      background: rgba(3, 10, 20, .34);
       text-decoration:none;
       color: var(--text);
-      font-weight:700;
-      font-size: 13px;
-      white-space:nowrap;
+      font-weight:900;
+      font-size: 14px;
     }
     .dot{
       width:10px; height:10px;
@@ -167,7 +149,6 @@
       box-shadow: 0 0 0 5px rgba(47,232,112,.12);
     }
 
-    /* centered feature chips */
     .chips{
       display:flex;
       gap:10px;
@@ -183,22 +164,19 @@
       border-radius: 999px;
       border:1px solid rgba(180,220,255,.14);
       background: rgba(10,18,32,.34);
-      color: rgba(234,243,255,.9);
-      font-weight:700;
+      color: rgba(234,243,255,.94);
+      font-weight:900;
       font-size: 12.5px;
     }
 
-    /* main body */
-    .body{
-      padding: 16px;
-    }
+    .body{ padding: 16px; }
 
     .heroH1{
       margin: 10px 0 8px;
       font-size: clamp(28px, 7vw, 44px);
       line-height:1.05;
       letter-spacing:-.6px;
-      font-weight: 900;
+      font-weight: 950;
     }
     .heroP{
       margin: 0 0 14px;
@@ -213,7 +191,6 @@
       margin: 14px 0;
     }
 
-    /* funnel step */
     .stepHead{
       display:flex;
       align-items:baseline;
@@ -221,16 +198,8 @@
       gap:10px;
       margin-top: 4px;
     }
-    .stepTitle{
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing:.2px;
-    }
-    .stepHint{
-      font-size: 12px;
-      color: var(--muted2);
-      white-space:nowrap;
-    }
+    .stepTitle{ font-size: 14px; font-weight: 950; }
+    .stepHint{ font-size: 12px; color: var(--muted2); white-space:nowrap; }
 
     .choices{
       display:grid;
@@ -238,53 +207,54 @@
       gap: 12px;
       margin-top: 12px;
     }
+
     .choice{
       position:relative;
       border-radius: 18px;
-      border:1px solid rgba(180,220,255,.14);
-      background: rgba(8,14,26,.38);
+      border:1px solid rgba(180,220,255,.16);
+      background: rgba(8,14,26,.40);
       padding: 14px 14px 12px;
       text-align:left;
       cursor:pointer;
       transition: transform .12s ease, border-color .12s ease, background .12s ease;
       user-select:none;
+      color: var(--text); /* ✅ force white text */
     }
-    .choice:hover{ transform: translateY(-1px); border-color: rgba(127,211,255,.36); }
+    .choice *{ color: var(--text); } /* ✅ ensure inner text never turns dark */
+
+    .choice:hover{
+      transform: translateY(-1px);
+      border-color: rgba(127,211,255,.40);
+    }
     .choice.active{
-      border-color: rgba(127,211,255,.55);
-      background: linear-gradient(180deg, rgba(127,211,255,.16), rgba(8,14,26,.38));
+      border-color: rgba(127,211,255,.60);
+      background: linear-gradient(180deg, rgba(127,211,255,.14), rgba(8,14,26,.40));
       box-shadow: 0 14px 40px rgba(0,0,0,.30);
     }
-    .choiceTop{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+
+    .choiceTop{ display:flex; align-items:center; gap:10px; }
     .emoji{
       width:38px; height:38px;
       border-radius: 14px;
       display:grid;
       place-items:center;
       background: rgba(127,211,255,.10);
-      border:1px solid rgba(127,211,255,.20);
+      border:1px solid rgba(127,211,255,.22);
       font-size: 18px;
       flex:0 0 auto;
     }
     .choiceName{
-      font-weight: 900;
+      font-weight: 950;
       font-size: 14.5px;
       letter-spacing:.2px;
     }
     .choiceSub{
       margin-top: 6px;
-      color: rgba(234,243,255,.72);
+      color: rgba(234,243,255,.78);
       font-size: 12.5px;
-      font-weight: 700; /* capitalized subheadings requested */
-      letter-spacing:.2px;
-      text-transform: none; /* we’ll write them in Title Case */
+      font-weight: 850;
     }
 
-    /* primary actions */
     .actions{
       display:grid;
       grid-template-columns: 1fr;
@@ -302,15 +272,15 @@
       background: rgba(10,18,32,.34);
       color: var(--text);
       text-decoration:none;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing:.2px;
       transition: transform .12s ease, border-color .12s ease, background .12s ease;
       text-align:center;
     }
     .btn:hover{ transform: translateY(-1px); border-color: rgba(127,211,255,.38); }
     .btnPrimary{
-      border-color: rgba(127,211,255,.45);
-      background: linear-gradient(90deg, rgba(127,211,255,.95), rgba(80,170,255,.86));
+      border-color: rgba(127,211,255,.50);
+      background: linear-gradient(90deg, rgba(127,211,255,.96), rgba(80,170,255,.86));
       color: #06101f;
       box-shadow: 0 16px 50px rgba(127,211,255,.18);
     }
@@ -320,13 +290,13 @@
       gap: 12px;
     }
 
-    /* inventory section */
     .sectionLabel{
       margin: 14px 0 10px;
       font-size: 12px;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing:.22em;
       color: rgba(234,243,255,.65);
+      text-align:center;
     }
     .miniRow{
       display:grid;
@@ -334,7 +304,6 @@
       gap: 12px;
     }
 
-    /* “more ways” collapsible */
     details{
       margin-top: 12px;
       border-radius: 18px;
@@ -346,8 +315,8 @@
       list-style:none;
       cursor:pointer;
       padding: 14px 14px;
-      font-weight: 900;
-      color: rgba(234,243,255,.88);
+      font-weight: 950;
+      color: rgba(234,243,255,.90);
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -360,7 +329,15 @@
       gap: 10px;
     }
 
-    /* sticky bottom bar (mobile-first) */
+    footer{
+      margin-top: 12px;
+      text-align:center;
+      color: rgba(234,243,255,.55);
+      font-size: 12px;
+      padding: 10px 0 0;
+    }
+
+    /* sticky bottom bar */
     .sticky{
       position:fixed;
       left:0; right:0;
@@ -384,31 +361,18 @@
       font-size: 13.5px;
     }
 
-    footer{
-      margin-top: 12px;
-      text-align:center;
-      color: rgba(234,243,255,.55);
-      font-size: 12px;
-      padding: 10px 0 0;
-    }
-
-    /* desktop polish */
     @media (min-width: 900px){
       .wrap{ margin-top: 24px; }
-      .body{ padding: 18px 18px 18px; }
-      .actions{ grid-template-columns: 1fr; }
-      .title{ max-width: 520px; font-size: 18px; }
-      .tagline{ max-width: 520px; font-size: 13px; }
+      .body{ padding: 18px; }
       .bg-grid{ grid-template-columns: 1fr 1fr 1fr; }
       .bg-grid .wide{ grid-column: 1 / -1; height: 44vh; }
-      .bg-grid .half{ height: 24vh; }
-      .sticky{ display:none; } /* desktop doesn’t need sticky bar */
+      .sticky{ display:none; }
+      .phonePill{ width: auto; display:inline-flex; justify-content:flex-start; padding: 10px 12px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Background collage: uses your uploaded filenames -->
   <div class="bg" aria-hidden="true">
     <div class="bg-grid">
       <img class="wide" src="hero-raptor.jpg" alt="" />
@@ -430,13 +394,13 @@
           </div>
         </div>
 
+        <!-- phone moved below to prevent cut-off -->
         <a class="phonePill" href="tel:+14036810014" aria-label="Call 403-681-0014">
           <span class="dot"></span>
           403-681-0014
         </a>
       </div>
 
-      <!-- centered + capitalized chips -->
       <div class="chips">
         <div class="chip">🚗 Private Consults</div>
         <div class="chip">⚡ Fast Replies</div>
@@ -515,7 +479,7 @@
           <details>
             <summary>
               More ways to reach me
-              <span style="color: rgba(234,243,255,.55); font-weight:800;">▾</span>
+              <span style="color: rgba(234,243,255,.55); font-weight:900;">▾</span>
             </summary>
             <div class="detailsBody">
               <a class="btn" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">⚡ Book Fast (Calendly)</a>
@@ -530,7 +494,6 @@
     </section>
   </main>
 
-  <!-- Mobile sticky bar (keeps funnel conversion high) -->
   <div class="sticky" role="navigation" aria-label="Quick actions">
     <div class="stickyInner">
       <a class="btn btnPrimary" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">📅 Book</a>
@@ -540,10 +503,8 @@
   </div>
 
   <script>
-    // Funnel config
-    const phone = "14036810014"; // include country code for sms links
+    const phone = "14036810014";
     const email = "aajdari@chillsford.com";
-    const ig = "@triple.a.sales";
 
     const categories = {
       truck: {
@@ -580,19 +541,17 @@
       currentKey = key;
       const c = categories[key];
 
-      // UI
       document.querySelectorAll(".choice").forEach(btn=>{
         btn.classList.toggle("active", btn.dataset.key === key);
       });
+
       selectedHint.innerHTML = `Selected: <b>${c.label}</b>`;
       bookBtn.innerHTML = `📅 ${c.bookLabel}`;
 
-      // Links (auto-fill)
       const smsBody = encodeURIComponent(c.message);
       const mailSubject = encodeURIComponent(`Vehicle Inquiry — ${c.label}`);
-      const mailBody = encodeURIComponent(c.message + `\n\n(IG: ${ig})`);
+      const mailBody = encodeURIComponent(c.message);
 
-      // iOS/Android friendly: sms:+1...&body=...
       const smsHref = `sms:+${phone}?&body=${smsBody}`;
       const mailHref = `mailto:${email}?subject=${mailSubject}&body=${mailBody}`;
 
@@ -601,12 +560,10 @@
       emailBtn.href = mailHref;
     }
 
-    // Bind taps
     document.querySelectorAll(".choice").forEach(btn=>{
       btn.addEventListener("click", ()=> setCategory(btn.dataset.key));
     });
 
-    // Init
     setCategory(currentKey);
   </script>
 </body>
