@@ -1,15 +1,613 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0B2A5B" />
-  <title>Triple A Sales — Arya | Country Hills Ford</title>
+  <title>Triple A Sales — Arya Ajdari</title>
+  <meta name="description" content="Calgary's Vehicle Sales Specialist — Trucks, SUVs, Luxury & Pre-Owned at Country Hills Ford. Book a consult or text for fast replies." />
 
-  <meta name="description" content="Book your private vehicle consultation & test drive in 30 seconds. Calgary’s Vehicle Sales Specialist at Country Hills Ford." />
-  <meta property="og:title" content="Triple A Sales — Arya | Country Hills Ford" />
-  <meta property="og:description" content="Quick funnel: pick what you want → book, call, text, or email." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="qr.jpg" />
+  <style>
+    :root{
+      /* Ford-ish blues */
+      --bg0:#04070c;
+      --bg1:#06101f;
+      --ford:#003478;
+      --ford2:#0b2a57;
+      --ice:#7fd3ff;
+      --ice2:#b8ecff;
 
-  <link rel="preconnect" href="https://fonts.googleapis
+      --card: rgba(12, 22, 38, .66);
+      --card2: rgba(12, 22, 38, .50);
+      --stroke: rgba(180, 220, 255, .14);
+      --stroke2: rgba(180, 220, 255, .22);
+
+      --text:#eaf3ff;
+      --muted: rgba(234,243,255,.72);
+      --muted2: rgba(234,243,255,.56);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 22px;
+      --radius2: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(0, 80, 180, .25), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(120, 210, 255, .18), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 70%);
+      overflow-x:hidden;
+    }
+
+    /* soft faded vehicle background collage */
+    .bg{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-2;
+      opacity:.32;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .bg::before{
+      content:"";
+      position:absolute;
+      inset:-20px;
+      background:
+        linear-gradient(180deg, rgba(3,7,12,.88), rgba(3,7,12,.88)),
+        radial-gradient(900px 500px at 50% 0%, rgba(0,52,120,.35), transparent 65%),
+        radial-gradient(800px 500px at 70% 70%, rgba(127,211,255,.22), transparent 60%);
+      z-index:2;
+    }
+    .bg-grid{
+      position:absolute;
+      inset:0;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 10px;
+      z-index:1;
+    }
+    .bg-grid img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius: 18px;
+      opacity:.55;
+      filter: blur(.2px);
+    }
+    .bg-grid .wide{ grid-column: 1 / -1; height: 38vh; min-height: 240px; }
+    .bg-grid .half{ height: 22vh; min-height: 160px; }
+
+    /* page container */
+    .wrap{
+      width:min(980px, 92vw);
+      margin: 18px auto 110px;
+      padding-bottom: 24px;
+    }
+
+    /* main glass card */
+    .card{
+      background: linear-gradient(180deg, rgba(12,22,38,.72), rgba(12,22,38,.52));
+      border:1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+    }
+
+    /* top header */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid rgba(180,220,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+    }
+    .profile{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .avatar{
+      width:46px; height:46px;
+      border-radius:14px;
+      border:1px solid rgba(180,220,255,.22);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      object-fit:cover;
+      flex:0 0 auto;
+    }
+    .who{
+      min-width:0;
+      line-height:1.15;
+    }
+    .title{
+      font-weight:800;
+      letter-spacing:.2px;
+      font-size: 16px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 52vw; /* prevents cut-off on mobile */
+    }
+    .tagline{
+      margin-top:4px;
+      color: var(--muted);
+      font-size: 12.5px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width: 58vw;
+    }
+
+    .phonePill{
+      flex: 0 0 auto;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(180,220,255,.18);
+      background: rgba(3, 10, 20, .32);
+      text-decoration:none;
+      color: var(--text);
+      font-weight:700;
+      font-size: 13px;
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      background: #2fe870;
+      box-shadow: 0 0 0 5px rgba(47,232,112,.12);
+    }
+
+    /* centered feature chips */
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      padding: 12px 16px 0;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(180,220,255,.14);
+      background: rgba(10,18,32,.34);
+      color: rgba(234,243,255,.9);
+      font-weight:700;
+      font-size: 12.5px;
+    }
+
+    /* main body */
+    .body{
+      padding: 16px;
+    }
+
+    .heroH1{
+      margin: 10px 0 8px;
+      font-size: clamp(28px, 7vw, 44px);
+      line-height:1.05;
+      letter-spacing:-.6px;
+      font-weight: 900;
+    }
+    .heroP{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height:1.5;
+    }
+
+    .divider{
+      height:1px;
+      background: rgba(180,220,255,.10);
+      margin: 14px 0;
+    }
+
+    /* funnel step */
+    .stepHead{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin-top: 4px;
+    }
+    .stepTitle{
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing:.2px;
+    }
+    .stepHint{
+      font-size: 12px;
+      color: var(--muted2);
+      white-space:nowrap;
+    }
+
+    .choices{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .choice{
+      position:relative;
+      border-radius: 18px;
+      border:1px solid rgba(180,220,255,.14);
+      background: rgba(8,14,26,.38);
+      padding: 14px 14px 12px;
+      text-align:left;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      user-select:none;
+    }
+    .choice:hover{ transform: translateY(-1px); border-color: rgba(127,211,255,.36); }
+    .choice.active{
+      border-color: rgba(127,211,255,.55);
+      background: linear-gradient(180deg, rgba(127,211,255,.16), rgba(8,14,26,.38));
+      box-shadow: 0 14px 40px rgba(0,0,0,.30);
+    }
+    .choiceTop{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .emoji{
+      width:38px; height:38px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      background: rgba(127,211,255,.10);
+      border:1px solid rgba(127,211,255,.20);
+      font-size: 18px;
+      flex:0 0 auto;
+    }
+    .choiceName{
+      font-weight: 900;
+      font-size: 14.5px;
+      letter-spacing:.2px;
+    }
+    .choiceSub{
+      margin-top: 6px;
+      color: rgba(234,243,255,.72);
+      font-size: 12.5px;
+      font-weight: 700; /* capitalized subheadings requested */
+      letter-spacing:.2px;
+      text-transform: none; /* we’ll write them in Title Case */
+    }
+
+    /* primary actions */
+    .actions{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border:1px solid rgba(180,220,255,.18);
+      background: rgba(10,18,32,.34);
+      color: var(--text);
+      text-decoration:none;
+      font-weight: 900;
+      letter-spacing:.2px;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      text-align:center;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(127,211,255,.38); }
+    .btnPrimary{
+      border-color: rgba(127,211,255,.45);
+      background: linear-gradient(90deg, rgba(127,211,255,.95), rgba(80,170,255,.86));
+      color: #06101f;
+      box-shadow: 0 16px 50px rgba(127,211,255,.18);
+    }
+    .btnRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* inventory section */
+    .sectionLabel{
+      margin: 14px 0 10px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing:.22em;
+      color: rgba(234,243,255,.65);
+    }
+    .miniRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* “more ways” collapsible */
+    details{
+      margin-top: 12px;
+      border-radius: 18px;
+      border:1px solid rgba(180,220,255,.12);
+      background: rgba(8,14,26,.30);
+      overflow:hidden;
+    }
+    summary{
+      list-style:none;
+      cursor:pointer;
+      padding: 14px 14px;
+      font-weight: 900;
+      color: rgba(234,243,255,.88);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    .detailsBody{
+      padding: 0 14px 14px;
+      display:grid;
+      gap: 10px;
+    }
+
+    /* sticky bottom bar (mobile-first) */
+    .sticky{
+      position:fixed;
+      left:0; right:0;
+      bottom:0;
+      padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, rgba(3,7,12,0), rgba(3,7,12,.75) 35%, rgba(3,7,12,.92));
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(180,220,255,.10);
+      z-index: 50;
+    }
+    .stickyInner{
+      width:min(980px, 92vw);
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .sticky .btn{
+      padding: 12px 10px;
+      border-radius: 16px;
+      font-size: 13.5px;
+    }
+
+    footer{
+      margin-top: 12px;
+      text-align:center;
+      color: rgba(234,243,255,.55);
+      font-size: 12px;
+      padding: 10px 0 0;
+    }
+
+    /* desktop polish */
+    @media (min-width: 900px){
+      .wrap{ margin-top: 24px; }
+      .body{ padding: 18px 18px 18px; }
+      .actions{ grid-template-columns: 1fr; }
+      .title{ max-width: 520px; font-size: 18px; }
+      .tagline{ max-width: 520px; font-size: 13px; }
+      .bg-grid{ grid-template-columns: 1fr 1fr 1fr; }
+      .bg-grid .wide{ grid-column: 1 / -1; height: 44vh; }
+      .bg-grid .half{ height: 24vh; }
+      .sticky{ display:none; } /* desktop doesn’t need sticky bar */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background collage: uses your uploaded filenames -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg-grid">
+      <img class="wide" src="hero-raptor.jpg" alt="" />
+      <img class="half" src="hero-bronco.jpg" alt="" />
+      <img class="half" src="hero-explorer.jpg" alt="" />
+      <img class="half" src="hero-expedition.webp" alt="" />
+      <img class="half" src="qr.jpg" alt="" />
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="top">
+        <div class="profile">
+          <img class="avatar" src="arya.jpg" alt="Arya Ajdari" />
+          <div class="who">
+            <div class="title">Triple A Sales — Arya</div>
+            <div class="tagline">Calgary's Vehicle Sales Specialist • Country Hills Ford</div>
+          </div>
+        </div>
+
+        <a class="phonePill" href="tel:+14036810014" aria-label="Call 403-681-0014">
+          <span class="dot"></span>
+          403-681-0014
+        </a>
+      </div>
+
+      <!-- centered + capitalized chips -->
+      <div class="chips">
+        <div class="chip">🚗 Private Consults</div>
+        <div class="chip">⚡ Fast Replies</div>
+        <div class="chip">✅ No Pressure</div>
+      </div>
+
+      <div class="body">
+        <h1 class="heroH1">Book in 30 seconds</h1>
+        <p class="heroP">
+          Specializing in <b>Trucks</b>, <b>SUVs</b> & <b>High-End Vehicles</b> at Country Hills Ford.
+          Tap what you’re shopping for — your <b>text/email auto-fills</b> so we can move fast.
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="stepHead">
+          <div class="stepTitle">1) What are you shopping for?</div>
+          <div class="stepHint" id="selectedHint">Selected: <b>Trucks</b></div>
+        </div>
+
+        <div class="choices" role="group" aria-label="Shopping category">
+          <button class="choice active" data-key="truck" type="button">
+            <div class="choiceTop">
+              <div class="emoji">🚛</div>
+              <div class="choiceName">Trucks</div>
+            </div>
+            <div class="choiceSub">Work • Towing • Off-Road</div>
+          </button>
+
+          <button class="choice" data-key="suv" type="button">
+            <div class="choiceTop">
+              <div class="emoji">🚙</div>
+              <div class="choiceName">SUV</div>
+            </div>
+            <div class="choiceSub">Family • Road Trips • Space</div>
+          </button>
+
+          <button class="choice" data-key="luxury" type="button">
+            <div class="choiceTop">
+              <div class="emoji">✨</div>
+              <div class="choiceName">Luxury</div>
+            </div>
+            <div class="choiceSub">Premium • Comfort • Tech</div>
+          </button>
+
+          <button class="choice" data-key="preowned" type="button">
+            <div class="choiceTop">
+              <div class="emoji">✅</div>
+              <div class="choiceName">Pre-Owned</div>
+            </div>
+            <div class="choiceSub">Best Value • Clean Trades</div>
+          </button>
+        </div>
+
+        <div class="actions">
+          <a class="btn btnPrimary" id="bookBtn" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
+            📅 Book a Truck Consult
+          </a>
+
+          <div class="btnRow">
+            <a class="btn" id="textBtn" href="#" aria-label="Text Arya">💬 Text (auto-fill)</a>
+            <a class="btn" id="emailBtn" href="#" aria-label="Email Arya">✉️ Email (auto-fill)</a>
+          </div>
+
+          <div class="btnRow">
+            <a class="btn" href="tel:+14036810014">📞 Call Now</a>
+            <a class="btn" href="https://www.instagram.com/triple.a.sales" target="_blank" rel="noopener">📸 Instagram</a>
+          </div>
+
+          <div class="sectionLabel">TAKE A LOOK AT OUR INVENTORY</div>
+          <div class="miniRow">
+            <a class="btn" href="https://www.countryhillsford.com/vehicles/new" target="_blank" rel="noopener">🆕 New Inventory</a>
+            <a class="btn" href="https://www.countryhillsford.com/vehicles/used" target="_blank" rel="noopener">🚘 Used Inventory</a>
+          </div>
+
+          <details>
+            <summary>
+              More ways to reach me
+              <span style="color: rgba(234,243,255,.55); font-weight:800;">▾</span>
+            </summary>
+            <div class="detailsBody">
+              <a class="btn" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">⚡ Book Fast (Calendly)</a>
+              <a class="btn" href="mailto:aajdari@chillsford.com">✉️ aajdari@chillsford.com</a>
+              <a class="btn" href="tel:+14036810014">📞 403-681-0014</a>
+            </div>
+          </details>
+
+          <footer>© 2026 Triple A Sales • Calgary, AB • Country Hills Ford</footer>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile sticky bar (keeps funnel conversion high) -->
+  <div class="sticky" role="navigation" aria-label="Quick actions">
+    <div class="stickyInner">
+      <a class="btn btnPrimary" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">📅 Book</a>
+      <a class="btn" href="tel:+14036810014">📞 Call</a>
+      <a class="btn" id="textBtn2" href="#">💬 Text</a>
+    </div>
+  </div>
+
+  <script>
+    // Funnel config
+    const phone = "14036810014"; // include country code for sms links
+    const email = "aajdari@chillsford.com";
+    const ig = "@triple.a.sales";
+
+    const categories = {
+      truck: {
+        label: "Trucks",
+        bookLabel: "Book a Truck Consult",
+        message: "Hi Arya — I’m looking for a Truck. My budget is: ____. Preferred payment: (cash/finance/lease). Timeline: ____. Must-haves: ____. When can we book a test drive?"
+      },
+      suv: {
+        label: "SUV",
+        bookLabel: "Book an SUV Consult",
+        message: "Hi Arya — I’m looking for an SUV. My budget is: ____. Preferred payment: (cash/finance/lease). Timeline: ____. Must-haves: ____. Can you shortlist options and book a test drive?"
+      },
+      luxury: {
+        label: "Luxury",
+        bookLabel: "Book a Luxury Consult",
+        message: "Hi Arya — I’m looking for a Luxury vehicle. My budget is: ____. Preferred payment: (cash/finance/lease). Timeline: ____. Must-haves: ____. Can you send me top options and availability?"
+      },
+      preowned: {
+        label: "Pre-Owned",
+        bookLabel: "Book a Pre-Owned Consult",
+        message: "Hi Arya — I’m looking for a Pre-Owned vehicle. My budget is: ____. Preferred payment: (cash/finance/lease). Timeline: ____. Must-haves: ____. Can you show me the best value options and book a test drive?"
+      }
+    };
+
+    let currentKey = "truck";
+
+    const selectedHint = document.getElementById("selectedHint");
+    const bookBtn = document.getElementById("bookBtn");
+    const textBtn = document.getElementById("textBtn");
+    const textBtn2 = document.getElementById("textBtn2");
+    const emailBtn = document.getElementById("emailBtn");
+
+    function setCategory(key){
+      currentKey = key;
+      const c = categories[key];
+
+      // UI
+      document.querySelectorAll(".choice").forEach(btn=>{
+        btn.classList.toggle("active", btn.dataset.key === key);
+      });
+      selectedHint.innerHTML = `Selected: <b>${c.label}</b>`;
+      bookBtn.innerHTML = `📅 ${c.bookLabel}`;
+
+      // Links (auto-fill)
+      const smsBody = encodeURIComponent(c.message);
+      const mailSubject = encodeURIComponent(`Vehicle Inquiry — ${c.label}`);
+      const mailBody = encodeURIComponent(c.message + `\n\n(IG: ${ig})`);
+
+      // iOS/Android friendly: sms:+1...&body=...
+      const smsHref = `sms:+${phone}?&body=${smsBody}`;
+      const mailHref = `mailto:${email}?subject=${mailSubject}&body=${mailBody}`;
+
+      textBtn.href = smsHref;
+      textBtn2.href = smsHref;
+      emailBtn.href = mailHref;
+    }
+
+    // Bind taps
+    document.querySelectorAll(".choice").forEach(btn=>{
+      btn.addEventListener("click", ()=> setCategory(btn.dataset.key));
+    });
+
+    // Init
+    setCategory(currentKey);
+  </script>
+</body>
+</html>
