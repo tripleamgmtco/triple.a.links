@@ -333,4 +333,126 @@
 
         <div class="seg" role="tablist" aria-label="Vehicle category">
           <button class="active" data-type="Truck" aria-pressed="true">🚚 Truck</button>
-          <button data-type="SUV" aria-pressed="false">🚙 SUV</button
+          <button data-type="SUV" aria-pressed="false">🚙 SUV</button>
+          <button data-type="High-End" aria-pressed="false">✨ High-End</button>
+          <button data-type="Pre-Owned" aria-pressed="false">✅ Pre-Owned</button>
+        </div>
+      </section>
+
+      <section class="cta" aria-label="Primary CTA">
+        <a class="btn primary" id="btnBook" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
+          📅 Book a <span id="ctaType">Truck</span> consult
+        </a>
+
+        <div class="row2">
+          <a class="btn" id="btnText" href="sms:+14036810014">💬 Text me your details</a>
+          <a class="btn" href="tel:+14036810014">📞 Call now</a>
+        </div>
+      </section>
+
+      <details class="more">
+        <summary>
+          More ways to reach me
+          <span class="chev">▾</span>
+        </summary>
+
+        <div class="links" aria-label="More links">
+          <a class="link" href="mailto:aajdari@chillsford.com" id="btnEmail">
+            ✉️ Email <span>aajdari@chillsford.com</span>
+          </a>
+          <a class="link" href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener">
+            📸 Instagram <span>@triple.a.sales</span>
+          </a>
+        </div>
+
+        <div class="qr" aria-label="QR">
+          <img src="qr.jpg" alt="Booking QR code">
+          <div>
+            <b>Prefer QR?</b>
+            <p>Scan to open booking instantly.</p>
+          </div>
+        </div>
+      </details>
+    </main>
+
+    <footer>© <span id="yr"></span> Triple A Sales • Calgary, AB • Country Hills Ford</footer>
+  </div>
+
+  <div class="sticky" aria-label="Sticky actions">
+    <div class="bar">
+      <a class="primary" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener" id="stickyBook">📅 Book</a>
+      <a href="tel:+14036810014">📞 Call</a>
+      <a href="sms:+14036810014" id="stickyText">💬 Text</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    const phone = "+14036810014";
+    const email = "aajdari@chillsford.com";
+
+    const state = { type: "Truck" };
+
+    const ctaType = document.getElementById("ctaType");
+    const btnBook = document.getElementById("btnBook");
+    const btnText = document.getElementById("btnText");
+    const btnEmail = document.getElementById("btnEmail");
+    const stickyText = document.getElementById("stickyText");
+
+    function smsTemplate(type){
+      return `Hi Arya — I’m looking for a ${type}. Budget: $____/mo or $____ total. Must-haves: _____. Timeline: _____. Trade-in? (Y/N). Can you shortlist 2–3 options and confirm availability?`;
+    }
+
+    function emailTemplate(type){
+      const subject = `Vehicle consult — ${type}`;
+      const body =
+`Hi Arya,
+
+I’m looking for a ${type}.
+
+Budget: $____/month OR $____ total
+Must-haves: __________________________________
+Timeline: ____________________________________
+Trade-in: (Y/N) — If yes: year/make/model/km: ____
+Preferred appointment time(s): ________________
+
+Can you shortlist 2–3 options and confirm availability?
+
+Thanks,`;
+      return {subject, body};
+    }
+
+    function setLinks(){
+      ctaType.textContent = state.type;
+      btnBook.setAttribute("aria-label", `Book a ${state.type} consultation on Calendly`);
+
+      const sms = encodeURIComponent(smsTemplate(state.type));
+      const smsHref = `sms:${phone}?&body=${sms}`;
+      btnText.href = smsHref;
+      stickyText.href = smsHref;
+
+      const em = emailTemplate(state.type);
+      btnEmail.href = `mailto:${email}?subject=${encodeURIComponent(em.subject)}&body=${encodeURIComponent(em.body)}`;
+    }
+
+    function setActive(btn){
+      document.querySelectorAll(".seg button").forEach(b=>{
+        const on = (b === btn);
+        b.classList.toggle("active", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    }
+
+    document.querySelectorAll(".seg button").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        state.type = btn.dataset.type || "Truck";
+        setActive(btn);
+        setLinks();
+      });
+    });
+
+    setLinks();
+  </script>
+</body>
+</html>
