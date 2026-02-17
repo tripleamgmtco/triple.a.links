@@ -2,296 +2,267 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Triple A Sales — Book a Private Vehicle Consultation</title>
-  <meta name="description" content="Book a private vehicle consultation with Arya — Trucks | SUVs | Luxury (Calgary)." />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Triple A Sales | Calgary Vehicle Specialist</title>
+  <meta name="description" content="Book a private vehicle consultation with Arya at Country Hills Ford. Trucks | SUVs | Luxury." />
   <style>
     :root{
-      --bg:#0b0f19;
-      --card:#111a2b;
-      --text:#e8eefc;
-      --muted:#a7b4d6;
-      --line:rgba(255,255,255,.12);
-      --accent:#7aa7ff;
-      --accent2:#5eead4;
-      --shadow: 0 18px 45px rgba(0,0,0,.45);
-      --radius: 22px;
-      --max: 980px;
+      --bg:#0b0d12;
+      --card:#111522;
+      --card2:#0f1320;
+      --text:#e9ecf5;
+      --muted:#a6b0c3;
+      --line:rgba(255,255,255,.10);
+      --accent:#6ea8ff;
+      --accent2:#8ef0c7;
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --radius:18px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background:
-        radial-gradient(1100px 700px at 20% -10%, rgba(122,167,255,.25), transparent 55%),
-        radial-gradient(900px 600px at 110% 10%, rgba(94,234,212,.16), transparent 50%),
-        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(110,168,255,.25), transparent 55%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(142,240,199,.18), transparent 60%),
+                  var(--bg);
       color:var(--text);
     }
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:24px 16px 70px;}
+    .wrap{max-width:980px;margin:0 auto;padding:22px}
     .top{
-      display:flex; gap:16px; align-items:center; justify-content:space-between;
-      padding:14px; border:1px solid var(--line); border-radius:var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      position: sticky; top: 10px; backdrop-filter: blur(10px); z-index: 5;
+      display:flex;gap:18px;align-items:center;justify-content:space-between;
+      padding:18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border-radius:var(--radius);box-shadow:var(--shadow);
     }
-    .brand{display:flex; gap:12px; align-items:center;}
-    .pfp{
-      width:46px; height:46px; border-radius:16px;
-      background: linear-gradient(135deg, rgba(122,167,255,.9), rgba(94,234,212,.75));
-      display:grid; place-items:center; font-weight:900;
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
-      letter-spacing:.5px;
+    .brand{display:flex;gap:14px;align-items:center;min-width:0}
+    .avatar{
+      width:56px;height:56px;border-radius:14px;
+      background:linear-gradient(135deg, rgba(110,168,255,.8), rgba(142,240,199,.7));
+      display:grid;place-items:center;font-weight:800;color:#0b0d12;
+      flex:0 0 auto;
     }
-    .brand h1{font-size:16px; margin:0; letter-spacing:.2px}
-    .brand p{margin:2px 0 0; font-size:12px; color:var(--muted)}
-    .mini{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
-    .chip{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      padding:8px 10px; border-radius:999px;
-      font-size:12px; color:var(--muted);
-      text-decoration:none;
-    }
-    .hero{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
-      align-items:stretch;
-    }
-    @media (max-width: 860px){
-      .hero{grid-template-columns: 1fr;}
-      .mini{justify-content:flex-start}
-      .top{position:relative; top:auto}
-    }
-    .slider{
-      border-radius:var(--radius);
-      overflow:hidden;
-      border:1px solid var(--line);
-      background: var(--card);
-      box-shadow: var(--shadow);
-      min-height: 360px;
-      position:relative;
-    }
-    .slide{
-      position:absolute; inset:0;
-      opacity:0; transform: scale(1.02);
-      transition: opacity .55s ease, transform .75s ease;
-      background-size:cover; background-position:center;
-    }
-    .slide.active{opacity:1; transform: scale(1);}
-    .overlay{
-      position:absolute; inset:0;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.68) 0%, rgba(0,0,0,.26) 55%, rgba(0,0,0,.10) 100%),
-        linear-gradient(0deg, rgba(0,0,0,.60) 0%, transparent 55%);
-    }
-    .slideText{
-      position:absolute; left:18px; right:18px; bottom:18px;
-      display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
-    }
-    .slideText h2{margin:0; font-size:22px; letter-spacing:.2px}
-    .slideText p{margin:4px 0 0; color:rgba(232,238,252,.88); font-size:13px; max-width: 560px;}
-    .dots{position:absolute; top:14px; right:14px; display:flex; gap:8px; z-index:3;}
-    .dot{
-      width:9px; height:9px; border-radius:999px;
-      background: rgba(255,255,255,.35);
-      border:1px solid rgba(255,255,255,.25);
-      cursor:pointer;
-    }
-    .dot.active{background: rgba(122,167,255,.95);}
-    .panel{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
-      padding:16px;
-      display:flex; flex-direction:column; gap:12px;
-    }
-    .panel h3{margin:0; font-size:18px;}
-    .panel .sub{margin:-6px 0 0; color:var(--muted); font-size:13px; line-height:1.35;}
-    .btn{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:14px 14px;
-      border-radius:16px;
-      text-decoration:none;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(122,167,255,.45);}
-    .btn strong{font-size:14px;}
-    .btn span{font-size:12px; color:var(--muted);}
-    .cta{
-      background: linear-gradient(135deg, rgba(122,167,255,.30), rgba(94,234,212,.20));
-      border-color: rgba(122,167,255,.55);
+    .brand h1{margin:0;font-size:18px;line-height:1.2}
+    .brand p{margin:4px 0 0;color:var(--muted);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:520px}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:999px;border:1px solid var(--line);
+      background:rgba(255,255,255,.02); color:var(--muted); font-size:13px;
     }
     .grid{
-      margin-top:16px;
+      margin-top:18px;
+      display:grid;grid-template-columns: 1.25fr .75fr;gap:18px;
+    }
+    @media (max-width: 860px){
+      .grid{grid-template-columns:1fr}
+      .brand p{max-width:260px}
+    }
+
+    .hero{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));
+      box-shadow:var(--shadow);
+    }
+    .hero .imgs{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:14px;
+      grid-template-rows: 190px 190px;
+      gap:8px;
+      padding:8px;
+      background:rgba(0,0,0,.25);
     }
-    @media (max-width: 680px){ .grid{grid-template-columns:1fr;} }
+    .hero .imgs img{
+      width:100%;height:100%;object-fit:cover;border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      filter:saturate(1.05) contrast(1.02);
+    }
+    .hero .copy{padding:16px 16px 18px}
+    .kicker{
+      display:inline-flex;gap:10px;align-items:center;
+      font-size:12px;color:var(--muted);
+      border:1px solid var(--line);background:rgba(255,255,255,.02);
+      padding:8px 10px;border-radius:999px;
+    }
+    .copy h2{margin:12px 0 6px;font-size:22px}
+    .copy .sub{margin:0;color:var(--muted);line-height:1.5}
+    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:12px 14px;border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      text-decoration:none;
+      font-weight:650;
+      transition: transform .08s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.06); border-color: rgba(255,255,255,.18)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(110,168,255,.95), rgba(142,240,199,.85));
+      color:#081018;border-color: transparent;
+    }
+    .btn.primary:hover{background:linear-gradient(135deg, rgba(110,168,255,1), rgba(142,240,199,1))}
+    .btn.small{padding:10px 12px;font-weight:600}
     .card{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius:18px;
-      padding:14px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      box-shadow:var(--shadow);
+      padding:16px;
     }
-    .card h4{margin:0 0 6px; font-size:14px;}
-    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.4;}
-    .foot{
+    .card h3{margin:0 0 10px;font-size:15px}
+    .list{display:flex;flex-direction:column;gap:10px}
+    .item{
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+      padding:12px;border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+    }
+    .item .left{min-width:0}
+    .item b{display:block;font-size:13px}
+    .item span{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.35}
+    .tag{
+      flex:0 0 auto;
+      font-size:12px;color:var(--muted);
+      padding:8px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.02);
+      white-space:nowrap;
+    }
+    .footer{
       margin-top:18px;
-      color:rgba(167,180,214,.9);
+      color:var(--muted);
       font-size:12px;
       text-align:center;
-      opacity:.95;
+      opacity:.9;
     }
-    .tinyLinks{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px;}
-    .tinyLinks a{color: rgba(232,238,252,.92); text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.25);}
-    .tinyLinks a:hover{border-bottom-color: rgba(122,167,255,.8);}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
+
+    <header class="top">
       <div class="brand">
-        <div class="pfp">AA</div>
-        <div>
-          <h1>Triple A Sales</h1>
-          <p>Trucks | SUVs | Luxury • Calgary</p>
+        <div class="avatar">AA</div>
+        <div style="min-width:0">
+          <h1>Triple A Sales — Arya</h1>
+          <p>Calgary • Trucks | SUVs | Luxury • Country Hills Ford</p>
         </div>
       </div>
-
-      <div class="mini">
-        <a class="chip" href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener">IG: @triple.a.sales</a>
-        <a class="chip" href="tel:+14036810014">Call: 403-681-0014</a>
-        <a class="chip" href="mailto:aajdari@chillsford.com">Email</a>
+      <div class="pill">
+        <span class="mono">403-681-0014</span>
       </div>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT: Hero + main CTA -->
+      <section class="hero">
+        <div class="imgs">
+          <!-- Replace these filenames with whatever you upload -->
+          <img src="assets/hero1.jpg" alt="Vehicle image 1">
+          <img src="assets/hero2.jpg" alt="Vehicle image 2">
+          <img src="assets/hero3.jpg" alt="Vehicle image 3">
+          <img src="assets/hero4.jpg" alt="Vehicle image 4">
+        </div>
+
+        <div class="copy">
+          <div class="kicker">🚘 Private Vehicle Consultations • No pressure • Fast responses</div>
+          <h2>Book a test drive / consultation in 30 seconds</h2>
+          <p class="sub">
+            Want the right truck/SUV fast? I’ll help you shortlist options, confirm availability, and get you in for a proper drive.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
+              📅 Book on Calendly
+            </a>
+            <a class="btn" href="tel:+14036810014">📞 Call</a>
+            <a class="btn" href="sms:+14036810014">💬 Text</a>
+            <a class="btn" href="mailto:aajdari@chillsford.com">✉️ Email</a>
+          </div>
+
+          <div class="ctaRow" style="margin-top:10px">
+            <a class="btn small" href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener">📸 IG: @triple.a.sales</a>
+            <span class="pill" style="padding:10px 12px">Ask for <b style="color:var(--text);font-weight:800;margin-left:6px">Arya</b></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: quick links -->
+      <aside class="card">
+        <h3>Quick Links</h3>
+        <div class="list">
+          <a class="item" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener" style="text-decoration:none">
+            <div class="left">
+              <b>Book an appointment</b>
+              <span>Choose a time • I’ll confirm vehicle + location</span>
+            </div>
+            <div class="tag">Calendly</div>
+          </a>
+
+          <a class="item" href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener" style="text-decoration:none">
+            <div class="left">
+              <b>Instagram</b>
+              <span>Reels • inventory highlights • buyer tips</span>
+            </div>
+            <div class="tag">IG</div>
+          </a>
+
+          <a class="item" href="mailto:aajdari@chillsford.com" style="text-decoration:none">
+            <div class="left">
+              <b>Email</b>
+              <span class="mono">aajdari@chillsford.com</span>
+            </div>
+            <div class="tag">Fast reply</div>
+          </a>
+
+          <a class="item" href="tel:+14036810014" style="text-decoration:none">
+            <div class="left">
+              <b>Call</b>
+              <span class="mono">403-681-0014</span>
+            </div>
+            <div class="tag">Direct</div>
+          </a>
+        </div>
+
+        <div style="margin-top:14px;border-top:1px solid var(--line);padding-top:14px">
+          <h3 style="margin-bottom:8px">Current highlights</h3>
+          <div class="list">
+            <div class="item">
+              <div class="left">
+                <b>Trucks</b>
+                <span>F-150 / Tremor / Super Duty</span>
+              </div>
+              <div class="tag">Work + play</div>
+            </div>
+            <div class="item">
+              <div class="left">
+                <b>SUVs</b>
+                <span>Explorer / Expedition / Bronco Sport</span>
+              </div>
+              <div class="tag">Family-ready</div>
+            </div>
+            <div class="item">
+              <div class="left">
+                <b>Luxury & pre-owned</b>
+                <span>Clean trades • priced to move</span>
+              </div>
+              <div class="tag">Value</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <div class="footer">
+      © <span id="y"></span> Triple A Sales • Calgary, AB • Country Hills Ford
     </div>
 
-    <div class="hero">
-      <div class="slider" aria-label="Vehicle showcase">
-        <div class="dots" id="dots"></div>
-
-        <div class="slide active" style="background-image:url('https://drive.google.com/uc?export=view&id=18ff_sDo3VJilSKcwV87HmwXClkqqmmUJ');"></div>
-        <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1AU5XUfOTqalvBYsgnzRkOP0YwuYgxT4N');"></div>
-        <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1T7JXnEJvE50TyYApvYzzSzOZ6D4KmY1I');"></div>
-        <div class="slide" style="background-image:url('https://drive.google.com/uc?export=view&id=1JOUOp0ARjhGJf07Xe7Vju-X0k2oS4Md_');"></div>
-
-        <div class="overlay"></div>
-
-        <div class="slideText">
-          <div>
-            <h2>Private Vehicle Consultations</h2>
-            <p>Send me what you want (budget + must-haves) and I’ll line up options — fast, simple, no pressure.</p>
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:12px;color:rgba(232,238,252,.85)">Country Hills Ford • NW Calgary</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h3>Book with Arya</h3>
-        <p class="sub">Pick a time that works. I’ll confirm availability and have vehicles ready when you arrive.</p>
-
-        <a class="btn cta" href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">
-          <div>
-            <strong>Book a test drive / consultation</strong><br/>
-            <span>Calendly — instant scheduling</span>
-          </div>
-          <div>→</div>
-        </a>
-
-        <a class="btn" href="tel:+14036810014">
-          <div>
-            <strong>Call / Text: 403-681-0014</strong><br/>
-            <span>Quick questions, price, trade-in, payments</span>
-          </div>
-          <div>→</div>
-        </a>
-
-        <a class="btn" href="mailto:aajdari@chillsford.com?subject=Vehicle%20Inquiry%20-%20Triple%20A%20Sales&body=Hey%20Arya%2C%0A%0AI%27m%20interested%20in%3A%20%0A%0ABudget%3A%20%0AMust-haves%3A%20%0ATrade-in%3A%20%0A%0ABest%20time%20to%20reach%20me%3A%20">
-          <div>
-            <strong>Email: aajdari@chillsford.com</strong><br/>
-            <span>Send your must-haves + budget</span>
-          </div>
-          <div>→</div>
-        </a>
-
-        <div class="grid">
-          <div class="card">
-            <h4>What to send me</h4>
-            <p>Budget, monthly target, must-haves (4x4, tech, leather), and your trade-in details.</p>
-          </div>
-          <div class="card">
-            <h4>What you get</h4>
-            <p>Shortlist of options + clean next steps to get you into a drive fast.</p>
-          </div>
-          <div class="card">
-            <h4>Specialty</h4>
-            <p>Trucks, SUVs, and “nice spec” builds (packages that actually matter).</p>
-          </div>
-          <div class="card">
-            <h4>Speed</h4>
-            <p>Most appointments can be set the same day depending on availability.</p>
-          </div>
-        </div>
-
-        <div class="foot">
-          Follow for new arrivals + walkarounds.
-          <div class="tinyLinks">
-            <a href="https://instagram.com/triple.a.sales" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://calendly.com/aryaajd/privatevehicleconsultation" target="_blank" rel="noopener">Book</a>
-            <a href="tel:+14036810014">Call/Text</a>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <script>
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const dotsWrap = document.getElementById('dots');
-    let idx = 0;
-    let timer = null;
-
-    function renderDots(){
-      dotsWrap.innerHTML = '';
-      slides.forEach((_, i) => {
-        const d = document.createElement('div');
-        d.className = 'dot' + (i === idx ? ' active' : '');
-        d.addEventListener('click', () => { goTo(i); restart(); });
-        dotsWrap.appendChild(d);
-      });
-    }
-
-    function goTo(i){
-      slides[idx].classList.remove('active');
-      idx = i;
-      slides[idx].classList.add('active');
-      renderDots();
-    }
-
-    function next(){
-      goTo((idx + 1) % slides.length);
-    }
-
-    function restart(){
-      if (timer) clearInterval(timer);
-      timer = setInterval(next, 4200);
-    }
-
-    renderDots();
-    restart();
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
